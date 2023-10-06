@@ -30,6 +30,7 @@ public abstract class DAOFactory {
 	
 	protected abstract void abrirConexion();
 	
+	
 	public abstract void cerrarConexion();
 	
 	public abstract void IniciarTransaccion();

@@ -1,6 +1,12 @@
 package co.edu.uco.tiendaonline.data.dao.daofactory.concrete;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import co.edu.uco.tiendaonline.crosscutting.exception.concrete.DataTiendaOnlineException;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilSQL;
 import co.edu.uco.tiendaonline.data.dao.ClienteDAO;
 import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
 import co.edu.uco.tiendaonline.data.dao.concrete.sqlserver.ClienteSQLServerDAO;
@@ -16,32 +22,35 @@ public final class SQLServerDAOFactory extends DAOFactory {
 	}
 	@Override
 	protected final void abrirConexion() {
-		// TODO your homework will be obtain connection with SQL server database
-		conexion = null;
+		try {
+			conexion=null;
+		}catch (SQLException exception) {
+			throw DataTiendaOnlineException.crear(null, null, exception);
+		}catch (ClassNotFoundException exception) {
+			throw DataTiendaOnlineException.crear(null, null, exception);
+		}catch (Exception exception) {
+			throw DataTiendaOnlineException.crear(null, null, exception);
+		} 
 	}
 
 	@Override
 	public final void cerrarConexion() {
-		// TODO your homework will be to close connection
-		
+		UtilSQL.cerrarConexion(conexion);
 	}
 
 	@Override
 	public final void IniciarTransaccion() {
-		// TODO your homework will be to init transaction
-		
+		UtilSQL.iniciarTransaccion(conexion);
 	}
 
 	@Override
 	public final void confirmarTransaccion() {
-		// TODO your homework will be to commit the transaction
-		
+		UtilSQL.confirmarTransaccion(conexion);
 	}
 
 	@Override
 	public final void cancelarTransaccion() {
-		// TODO your homework will be to rollback  transaction
-		
+		UtilSQL.cancelarTransaccion(conexion);
 	}
 
 	@Override
