@@ -17,90 +17,74 @@ public class ClienteEntity {
 	private Date fechaNacimiento;
 
 
-	private ClienteEntity(final UUID id,final TipoIdentificacionEntity tipoIdentificacion,final String identificacion,
-			final NombreCompletoClienteEntity nombreCompleto ,final CorreoElectronicoClienteEntity correoElectronico ,
-			final NumeroTelefonoClienteEntity numeroTelefono,final Date fechaNacimiento){
+	private ClienteEntity(final UUID id, final TipoIdentificacionEntity tipoIdentificacion, final String identificacion, final NombreCompletoClienteEntity nombreCompleto,
+			CorreoElectronicoClienteEntity correoElectronico, NumeroTelefonoClienteEntity numeroTelefono, final Date fechaNacimiento) {
 		setId(id);
 		setTipoIdentificacion(tipoIdentificacion);
 		setIdentificacion(identificacion);
-		setNombreCompleto(nombreCompleto); 
+		setNombreCompleto(nombreCompleto);
 		setCorreoElectronico(correoElectronico);
 		setNumeroTelefono(numeroTelefono);
 		setFechaNacimiento(fechaNacimiento);
 	}
-	public static final ClienteEntity crear(final UUID id,final TipoIdentificacionEntity tipoIdentificacion,final String identificacion,
-			final NombreCompletoClienteEntity nombreCompleto ,final CorreoElectronicoClienteEntity correoElectronico ,
-			final NumeroTelefonoClienteEntity numeroTelefono,final Date fechaNacimiento) {
-		return new ClienteEntity(id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroTelefono, fechaNacimiento);
-	}
-
-
-	public final UUID getId() {
-		return id;
-	}
-
-
-	public final TipoIdentificacionEntity getTipoIdentificacion() {
-		return tipoIdentificacion;
-	}
-
-
-	public final String getIdentificacion() {
-		return identificacion;
-	}
-
-
-	public final NombreCompletoClienteEntity getNombreCompleto() {
-		return nombreCompleto;
-	}
 	
-	public final CorreoElectronicoClienteEntity getCorreoElectronico() {
-		return correoElectronico;
-	}
-	
-
-
-	public final NumeroTelefonoClienteEntity getNumeroTelefono() {
-		return numeroTelefono;
-	}
-	
-	public final Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public static final ClienteEntity crear(final UUID id, final TipoIdentificacionEntity tipoIdentificacion, final String identificacion, final NombreCompletoClienteEntity nombreCompleto,
+			CorreoElectronicoClienteEntity correoElectronico, NumeroTelefonoClienteEntity numeroTelefono,final Date fechaNacimiento) {
+		
+		return new ClienteEntity(id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroTelefono,fechaNacimiento);
 	}
 	
 	private final void setId(UUID id) {
 		this.id = id;
 	}
-
-
-	private final void setTipoIdentificacion(TipoIdentificacionEntity tipoIdentificacion) {
-		this.tipoIdentificacion =tipoIdentificacion;
+	private final void setTipoIdentificacion(final TipoIdentificacionEntity tipoIdentificacion) {
+		this.tipoIdentificacion = tipoIdentificacion;
 	}
-
-
-	private final void setIdentificacion(String identificacion) {
+	private final void setIdentificacion(final String identificacion) {
 		this.identificacion = identificacion;
 	}
-
-
-	private final void setNombreCompleto(NombreCompletoClienteEntity nombreCompleto) {
+	
+	private final void setNombreCompleto(final NombreCompletoClienteEntity nombreCompleto) {
 		this.nombreCompleto = nombreCompleto;
 	}
-
-	private final void setCorreoElectronico(CorreoElectronicoClienteEntity correoElectronico) {
+	
+	private final void setCorreoElectronico(final CorreoElectronicoClienteEntity correoElectronico) {
 		this.correoElectronico = correoElectronico;
 	}
-	private final void setNumeroTelefono(NumeroTelefonoClienteEntity numeroTelefono) {
+
+	private final void setNumeroTelefono(final NumeroTelefonoClienteEntity numeroTelefono) {
 		this.numeroTelefono = numeroTelefono;
 	}
 	
-	private final void setFechaNacimiento(Date fechaNacimiento) {
+	private final void setFechaNacimiento(final Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
+	public final UUID getId() {
+		return id;
+	}
+	public final TipoIdentificacionEntity getTipoIdentificacion() {
+		return tipoIdentificacion;
+	}
+	public final String getIdentificacion() {
+		return identificacion;
+	}
 	
-	
-	
-	
+	public final NombreCompletoClienteEntity getNombreCompleto() {
+		return nombreCompleto;
+	}
+
+	public final CorreoElectronicoClienteEntity getCorreoElectronico() {
+		return correoElectronico;
+	}
+
+	public final NumeroTelefonoClienteEntity getNumeroTelefono() {
+		return numeroTelefono;
+	}
+
+	public final Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
 	
 	
 

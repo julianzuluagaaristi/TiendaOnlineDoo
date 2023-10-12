@@ -1,11 +1,6 @@
 package co.edu.uco.tiendaonline.data.dao.daofactory.concrete;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import co.edu.uco.tiendaonline.crosscutting.exception.concrete.DataTiendaOnlineException;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilSQL;
 import co.edu.uco.tiendaonline.data.dao.ClienteDAO;
 import co.edu.uco.tiendaonline.data.dao.TipoIdentificacionDAO;
@@ -20,47 +15,42 @@ public final class SQLServerDAOFactory extends DAOFactory {
 	public SQLServerDAOFactory() {
 		abrirConexion();
 	}
+	
 	@Override
 	protected final void abrirConexion() {
-		try {
-			conexion=null;
-		}catch (SQLException exception) {
-			throw DataTiendaOnlineException.crear(null, null, exception);
-		}catch (ClassNotFoundException exception) {
-			throw DataTiendaOnlineException.crear(null, null, exception);
-		}catch (Exception exception) {
-			throw DataTiendaOnlineException.crear(null, null, exception);
-		} 
+		conexion = null;
 	}
 
 	@Override
 	public final void cerrarConexion() {
 		UtilSQL.cerrarConexion(conexion);
-	}
+	}	
 
 	@Override
-	public final void IniciarTransaccion() {
+	public final void iniciarTransaccion() {
 		UtilSQL.iniciarTransaccion(conexion);
 	}
 
 	@Override
-	public final void confirmarTransaccion() {
+	public final void confirmarTransacion() { 
 		UtilSQL.confirmarTransaccion(conexion);
 	}
 
 	@Override
-	public final void cancelarTransaccion() {
+	public void cancelarTransacion() {
 		UtilSQL.cancelarTransaccion(conexion);
+		
 	}
 
 	@Override
-	public  ClienteDAO obtenerClienteDAO() {
+	public ClienteDAO obtenerClienteDao() {
 		return new ClienteSQLServerDAO(conexion);
 	}
 
 	@Override
-	public TipoIdentificacionDAO obtenerTipoIdentificacionDAO() {
-		return new TipoIdentificacionSQLServerDAO(conexion); 
+	public TipoIdentificacionDAO obtenerTipoIdentificacionDao() {
+		return new TipoIdentificacionSQLServerDAO(conexion);
 	}
-			
+	
+
 }

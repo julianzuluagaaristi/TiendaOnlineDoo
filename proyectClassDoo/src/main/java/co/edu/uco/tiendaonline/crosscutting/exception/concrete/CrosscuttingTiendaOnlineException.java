@@ -1,27 +1,27 @@
 package co.edu.uco.tiendaonline.crosscutting.exception.concrete;
 
 import co.edu.uco.tiendaonline.crosscutting.exception.TiendaOnlineException;
-import co.edu.uco.tiendaonline.crosscutting.exception.enumerator.lugarException;
+import co.edu.uco.tiendaonline.crosscutting.exception.enumerator.LugarException;
 
-public class CrosscuttingTiendaOnlineException extends TiendaOnlineException{
+public class CrosscuttingTiendaOnlineException  extends TiendaOnlineException{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3715455749449441457L;
 
-	protected CrosscuttingTiendaOnlineException(final Throwable exceptionRaiz,final String mensajeUsuario,
-			final String mensajeTecnico) {
-		super(lugarException.CROSSCUTTING, exceptionRaiz, mensajeUsuario, mensajeTecnico);
+	protected CrosscuttingTiendaOnlineException(Throwable exceptionRaiz, String mensajeUsuario,
+			String mensajeTecnico) {
+		super(LugarException.CROSSCUTTING, exceptionRaiz, mensajeUsuario, mensajeTecnico);
 	}
 
 	public static final TiendaOnlineException crear(final String mensajeUsuario) {
 		return new CrosscuttingTiendaOnlineException(null, mensajeUsuario, mensajeUsuario);
 	}
 	
-	public static final TiendaOnlineException crear(final String mensajeUsuario,final String mensajeTecnico) {
+	public static final TiendaOnlineException crear(final String mensajeUsuario, final String mensajeTecnico) {
 		return new CrosscuttingTiendaOnlineException(null, mensajeUsuario, mensajeTecnico);
 	}
-	
-	public static final TiendaOnlineException crear(final String mensajeUsuario,final String mensajeTecnico,
-			final Throwable exceptionRaiz ) {
-		return new CrosscuttingTiendaOnlineException(exceptionRaiz, mensajeUsuario, mensajeTecnico);
+
+	public static final TiendaOnlineException crear(final Throwable excepcionRaiz, final String mensajeUsuario, final String mensajeTecnico) {
+		return new CrosscuttingTiendaOnlineException(excepcionRaiz, mensajeUsuario, mensajeTecnico);
 	}
+
 }

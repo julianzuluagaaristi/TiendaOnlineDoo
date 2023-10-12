@@ -14,164 +14,143 @@ public final class UtilSQL {
 	}
 	
 	public static final boolean conexionAbierta(final Connection conexion) {
-		if (UtilObjeto.esNulo(conexion)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "No es posible validar si una conexion está abierta cuando es nula";
+		if(UtilObjeto.esNulo(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000007);
 			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		try {
-			return !(conexion.isClosed());
+			return  !conexion.isClosed();
 		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000005);
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
-		}
-		catch (final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000006);
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000005);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
+		}catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000006);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
+	
 	public static final void cerrarConexion(final Connection conexion) {
-		if (UtilObjeto.esNulo(conexion)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "No es posible cerrar una conexion que está nula";
+		if(UtilObjeto.esNulo(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000008);
 			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		try {
-			if (! conexionAbierta(conexion)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible cerrar una conexion que ya está cerrada";
+			if(!conexionAbierta(conexion)) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000009);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
 			conexion.close();
-		}catch(CrosscuttingTiendaOnlineException excepcion) {
+		} catch (final CrosscuttingTiendaOnlineException excepcion) {
 			throw excepcion;
-		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion tratando de cerrar una conexion SQL "
-					+ "se presentó una exception de tipo SQLException, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
-		}catch(final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion inseperado tratando de cerrar una conexion SQL "
-					+ "se presentó una exception de tipo generica, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000010);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
+		}
+		catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000011);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
+	
 	public static final void iniciarTransaccion(final Connection conexion) {
-		if (UtilObjeto.esNulo(conexion)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "No es posible iniciar una transaccion con una conexion que está nula";
+		if(UtilObjeto.esNulo(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000012);
 			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		try {
-			if (! conexionAbierta(conexion)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible iniciar una transaccion con una conexion cerrada";
+			if(!conexionAbierta(conexion)) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000013);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
-			if (!conexion.getAutoCommit()) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible iniciar una transaccion que ya ha sido iniciada";
+			if(!conexion.getAutoCommit()) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000014);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
 			conexion.setAutoCommit(false);
-		}catch(CrosscuttingTiendaOnlineException excepcion) {
+		} catch (final CrosscuttingTiendaOnlineException excepcion) {
 			throw excepcion;
-		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion tratando de iniciar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo SQLException, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
-		}catch(final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion inseperado tratando de iniciar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo generica, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000015);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
+		}
+		catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000016);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
-	
 	public static final void confirmarTransaccion(final Connection conexion) {
-		if (UtilObjeto.esNulo(conexion)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "No es posible confirmar una transaccion con una conexion que está nula";
+		if(UtilObjeto.esNulo(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000017);
 			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		try {
-			if (!conexionAbierta(conexion)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible confirmar una transaccion con una conexion cerrada";
+			if(conexionAbierta(conexion)) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000018);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
-			if (conexion.getAutoCommit()) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible confirmar una transaccion que no fue iniciada";
+			if(conexion.getAutoCommit()) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000019);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
-			conexion.commit();;
-		}catch(CrosscuttingTiendaOnlineException excepcion) {
+			conexion.commit();
+		} catch (final CrosscuttingTiendaOnlineException excepcion) {
 			throw excepcion;
-		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion tratando de confirmar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo SQLException, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
-		}catch(final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion inseperado tratando de confirmar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo generica, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000020);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
+		}
+		catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000021);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
-	
 	public static final void cancelarTransaccion(final Connection conexion) {
-		if (UtilObjeto.esNulo(conexion)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "No es posible cancelar una transaccion con una conexion que está nula";
+		if(UtilObjeto.esNulo(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000022);
 			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		try {
-			if (!conexionAbierta(conexion)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible cancelar una transaccion con una conexion cerrada";
+			if(conexionAbierta(conexion)) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000023);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
-			if (conexion.getAutoCommit()) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-				var mensajeTecnico= "No es posible cancelar una transaccion que no fue iniciada";
+			if(conexion.getAutoCommit()) {
+				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000024);
 				throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico);
 			}
 			conexion.rollback();
-		}catch(CrosscuttingTiendaOnlineException excepcion) {
+		} catch (final CrosscuttingTiendaOnlineException excepcion) {
 			throw excepcion;
-		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion tratando de cancelar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo SQLException, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
-		}catch(final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico= "Se ha presentado una excepcion inseperado tratando de cancelar la transaccion de una conexion SQL "
-					+ "se presentó una exception de tipo generica, por favor verifique la traza completa\"\r\n"
-					+ "				+ \"del error presentado, para así poder diagnosticar con mayor certeza que sucedio"
-					+ " ya está cerrada";
-			throw CrosscuttingTiendaOnlineException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000025);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
+		}
+		catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000026);
+			throw CrosscuttingTiendaOnlineException.crear(excepcion,mensajeUsuario,mensajeTecnico);
 		}
 	}
-	
+
 }

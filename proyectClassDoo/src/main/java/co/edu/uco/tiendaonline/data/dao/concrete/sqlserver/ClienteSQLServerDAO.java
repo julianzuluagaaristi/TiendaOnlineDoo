@@ -9,9 +9,9 @@ import co.edu.uco.tiendaonline.data.dao.ClienteDAO;
 import co.edu.uco.tiendaonline.data.dao.base.SQLDAO;
 import co.edu.uco.tiendaonline.data.entity.ClienteEntity;
 
-public class ClienteSQLServerDAO extends SQLDAO implements ClienteDAO {
+public final class ClienteSQLServerDAO extends SQLDAO  implements ClienteDAO {
 
-	public ClienteSQLServerDAO(Connection conexion) {
+	public ClienteSQLServerDAO(final Connection conexion) {
 		super(conexion);
 	}
 
