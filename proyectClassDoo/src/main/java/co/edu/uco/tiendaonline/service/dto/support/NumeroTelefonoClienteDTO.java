@@ -1,16 +1,16 @@
-package co.edu.uco.tiendaonline.data.entity.support;
+package co.edu.uco.tiendaonline.service.dto.support;
 
-public class NumeroTelefonoClienteEntity {
+public class NumeroTelefonoClienteDTO {
 	private String numeroTelefono;
 	private boolean numeroTelefonoConfirmado;
 	
-	private NumeroTelefonoClienteEntity(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
+	private NumeroTelefonoClienteDTO(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
 		setNumeroTelefono(numeroTelefono);
 		setNumeroTelefonoConfirmado(numeroTelefonoConfirmado);
 	}
 	
-	public static final NumeroTelefonoClienteEntity crear(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
-		return new NumeroTelefonoClienteEntity(numeroTelefono, numeroTelefonoConfirmado);
+	public static final NumeroTelefonoClienteDTO crear(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
+		return new NumeroTelefonoClienteDTO(numeroTelefono, numeroTelefonoConfirmado);
 	}
 
 	public final String getNumeroTelefono() {

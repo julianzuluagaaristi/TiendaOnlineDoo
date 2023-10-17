@@ -1,16 +1,16 @@
-package co.edu.uco.tiendaonline.data.entity.support;
+package co.edu.uco.tiendaonline.service.dto.support;
 
-public class CorreoElectronicoClienteEntity {
+public class CorreoElectronicoClienteDTO {
 	private String correoElectronico;
 	private  boolean correoElectronicoConfirmado;
 	
-	private CorreoElectronicoClienteEntity(final String correoElectronico, final boolean correoElectronicoConfirmado) {
+	private CorreoElectronicoClienteDTO(final String correoElectronico, final boolean correoElectronicoConfirmado) {
 	setCorreoElectronico(correoElectronico);
 	setCorreoElectronicoConfirmado(correoElectronicoConfirmado);
 	}
 	
-	public static final CorreoElectronicoClienteEntity crear(final String correoElectronico, final boolean correoElectronicoConfirmado) {
-		return new CorreoElectronicoClienteEntity(correoElectronico, correoElectronicoConfirmado);
+	public static final CorreoElectronicoClienteDTO crear(final String correoElectronico, final boolean correoElectronicoConfirmado) {
+		return new CorreoElectronicoClienteDTO(correoElectronico, correoElectronicoConfirmado);
 	}
 
 	public final String getCorreoElectronico() {
