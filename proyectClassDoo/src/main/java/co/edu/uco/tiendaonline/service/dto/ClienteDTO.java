@@ -3,7 +3,9 @@ package co.edu.uco.tiendaonline.service.dto;
 import java.sql.Date;
 import java.util.UUID;
 
+import co.edu.uco.tiendaonline.crosscutting.util.UtilDate;
 import co.edu.uco.tiendaonline.crosscutting.util.UtilTexto;
+import co.edu.uco.tiendaonline.crosscutting.util.UtilUuid;
 import co.edu.uco.tiendaonline.service.dto.support.CorreoElectronicoClienteDTO;
 import co.edu.uco.tiendaonline.service.dto.support.NombreCompletoClienteDTO;
 import co.edu.uco.tiendaonline.service.dto.support.NumeroTelefonoClienteDTO;
@@ -18,9 +20,9 @@ public class ClienteDTO {
 	private Date fechaNacimiento;
 	
 	
-	public ClienteDTO(UUID id, TipoIdentificacionDTO tipoIdentificacion, String identificacion,
-			NombreCompletoClienteDTO nombreCompleto, CorreoElectronicoClienteDTO correoElectronico,
-			NumeroTelefonoClienteDTO numeroTelefono, Date fechaNacimiento) {
+	public ClienteDTO(final UUID id, final TipoIdentificacionDTO tipoIdentificacion, final String identificacion,
+			final NombreCompletoClienteDTO nombreCompleto, final CorreoElectronicoClienteDTO correoElectronico,
+			final NumeroTelefonoClienteDTO numeroTelefono, final Date fechaNacimiento) {
 		setId(id);
 		setTipoIdentificacionDTO(tipoIdentificacion);
 		setIdentificacion(identificacion);
@@ -31,15 +33,23 @@ public class ClienteDTO {
 	}
 	
 	public ClienteDTO() {
-		setId(id);// TODO ¿COMO LOGRAR QUE POR DEFECTO SE ASIGNE UN UUID QUE SEA TODO CON 0?
+		setId(UtilUuid.DEFAULT_UUID);
 		setTipoIdentificacionDTO(new TipoIdentificacionDTO());
 		setIdentificacion(UtilTexto.VACIO);
-		setNombreCompletoDTO(nombreCompleto);
-		setCorreoElectronicoDTO(correoElectronico);
-		setNumeroTelefonoDTO(numeroTelefono);
-		setFechaNacimiento(fechaNacimiento);// TODO ¿COMO LOGRAR QUE POR DEFECTO SE ASIGNE UNA FECHA POR DEFECTO QUE NO SEA VALIDA Y QUE SE PUEDA SABER FACILMENTE IDENTIFICARLA?
+		setNombreCompletoDTO(new NombreCompletoClienteDTO());
+		setCorreoElectronicoDTO(new CorreoElectronicoClienteDTO());
+		setNumeroTelefonoDTO(new NumeroTelefonoClienteDTO());
+		setFechaNacimiento(UtilDate.crearFechaPorDefecto());
 	}
 
+	public static final ClienteDTO crear(final UUID id, final TipoIdentificacionDTO tipoIdentificacion, final String identificacion,
+			final NombreCompletoClienteDTO nombreCompleto, final CorreoElectronicoClienteDTO correoElectronico,
+			final NumeroTelefonoClienteDTO numeroTelefono, final Date fechaNacimiento) {
+		return new ClienteDTO(id, tipoIdentificacion, identificacion, nombreCompleto, correoElectronico, numeroTelefono, fechaNacimiento);
+	}
+	public static final ClienteDTO crear() {
+		return new ClienteDTO();
+	}
 
 	public final UUID getId() {
 		return id;
